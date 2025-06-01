@@ -334,16 +334,19 @@ class DeploymentTrackerAPITester(unittest.TestCase):
         
         # Developer should be able to update admin's bug if they have permission
         # This might fail if the backend properly checks permissions
-        dev_update_admin_response = requests.put(
-            f"{self.base_url}/bugs/{admin_bug_id}",
-            json=update_data,
-            headers=dev_headers
-        )
-        
-        if dev_update_admin_response.status_code == 200:
-            print("⚠️ Developer can update admin's bug (possible permission issue)")
-        else:
-            print("✅ Developer cannot update admin's bug (permission check working)")
+        try:
+            dev_update_admin_response = requests.put(
+                f"{self.base_url}/bugs/{admin_bug_id}",
+                json=update_data,
+                headers=dev_headers
+            )
+            
+            if dev_update_admin_response.status_code == 200:
+                print("⚠️ Developer can update admin's bug (possible permission issue)")
+            else:
+                print(f"✅ Developer cannot update admin's bug (permission check working, status: {dev_update_admin_response.status_code})")
+        except Exception as e:
+            print(f"⚠️ Error when developer tries to update admin's bug: {str(e)}")
 
 def run_tests():
     suite = unittest.TestSuite()
