@@ -76,9 +76,9 @@
 
 .form-input:focus {
   outline: none;
-  ring: 2px;
-  ring-offset: 2px;
-  ring-indigo-500;
+  ring-width: 2px;
+  ring-offset-width: 2px;
+  ring-color: #6366f1;
   border-color: #6366f1;
 }
 
